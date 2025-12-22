@@ -1,6 +1,6 @@
 # isoBURN
 
-A native macOS application for burning ISO files to USB drives. Built with Java 21, JavaFX, and Spring Boot.
+A native macOS application for burning ISO files to USB drives. Built with Java, JavaFX, and Spring Boot.
 
 <p align="center">
   <img src="docs/screenshot.png" alt="isoBURN Screenshot" width="600">
@@ -20,7 +20,7 @@ A native macOS application for burning ISO files to USB drives. Built with Java 
 
 ### Pre-built Application (Recommended)
 
-Download the latest release from the [Releases](https://github.com/yourusername/isoBURN/releases) page:
+Download the latest release from the [Releases](https://github.com/robert-schmidt/isoburn/releases) page:
 
 | File | Description |
 |------|-------------|
@@ -46,7 +46,7 @@ java -jar isoburn-1.0.0.jar
 
 ### For the JAR Version
 - macOS 10.14+ (Mojave or later)
-- Java 21 or later
+- Java 20 or later
 
 ### For Windows 11 ISOs (Optional)
 
@@ -91,8 +91,8 @@ brew install wimlib
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/isoBURN.git
-cd isoBURN
+git clone https://github.com/robert-schmidt/isoburn.git
+cd isoburn
 
 # Build the JAR
 mvn clean package -DskipTests
@@ -200,7 +200,7 @@ isoBURN/
 
 ## Tech Stack
 
-- **Java 21** - Language & Runtime
+- **Java 20** - Language & Runtime
 - **JavaFX 21** - GUI Framework
 - **Spring Boot 3.2** - Dependency Injection
 - **Maven** - Build System

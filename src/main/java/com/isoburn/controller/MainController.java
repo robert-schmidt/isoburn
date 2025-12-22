@@ -15,9 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.awt.Desktop;
+import com.isoburn.IsoBurnApplication;
 import java.io.File;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -296,9 +295,7 @@ public class MainController {
 
     private void openUrl(String url) {
         try {
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().browse(new URI(url));
-            }
+            IsoBurnApplication.getAppHostServices().showDocument(url);
         } catch (Exception e) {
             log.error("Failed to open URL: " + url, e);
         }
