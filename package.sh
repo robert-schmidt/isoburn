@@ -81,9 +81,8 @@ jpackage \
     --icon "$ICON_DIR/isoburn.icns" \
     --input "$STAGING_DIR" \
     --main-jar "isoburn-${APP_VERSION}.jar" \
-    --main-class "$MAIN_CLASS" \
+    --main-class "org.springframework.boot.loader.launch.JarLauncher" \
     --dest "$OUTPUT_DIR" \
-    --java-options "-XstartOnFirstThread" \
     --mac-package-name "$APP_NAME"
 
 echo "      App bundle created: $OUTPUT_DIR/$APP_NAME.app"
@@ -101,9 +100,8 @@ jpackage \
     --icon "$ICON_DIR/isoburn.icns" \
     --input "$STAGING_DIR" \
     --main-jar "isoburn-${APP_VERSION}.jar" \
-    --main-class "$MAIN_CLASS" \
+    --main-class "org.springframework.boot.loader.launch.JarLauncher" \
     --dest "$OUTPUT_DIR" \
-    --java-options "-XstartOnFirstThread" \
     --mac-package-name "$APP_NAME"
 
 echo ""

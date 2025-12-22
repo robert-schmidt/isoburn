@@ -1,6 +1,7 @@
 package com.isoburn;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,16 +11,19 @@ import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.awt.Taskbar;
-import java.awt.Toolkit;
 import java.io.InputStream;
 
 public class IsoBurnApplication extends Application {
 
     private ConfigurableApplicationContext springContext;
+    private static HostServices hostServices;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static HostServices getAppHostServices() {
+        return hostServices;
     }
 
     @Override
@@ -31,28 +35,20 @@ public class IsoBurnApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        hostServices = getHostServices();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
         loader.setControllerFactory(springContext::getBean);
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
-        // Set application icon
+        // Set application icon (JavaFX handles dock icon automatically)
         try {
             InputStream iconStream = getClass().getResourceAsStream("/icons/isoburn.png");
             if (iconStream != null) {
                 Image icon = new Image(iconStream);
                 primaryStage.getIcons().add(icon);
-
-                // Set macOS dock icon
-                if (Taskbar.isTaskbarSupported()) {
-                    Taskbar taskbar = Taskbar.getTaskbar();
-                    if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
-                        java.awt.Image awtIcon = Toolkit.getDefaultToolkit()
-                            .getImage(getClass().getResource("/icons/isoburn.png"));
-                        taskbar.setIconImage(awtIcon);
-                    }
-                }
             }
         } catch (Exception e) {
             System.err.println("Could not load application icon: " + e.getMessage());
