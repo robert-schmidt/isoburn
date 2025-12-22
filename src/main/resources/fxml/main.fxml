@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.isoburn.controller.MainController"
+      spacing="15"
+      prefWidth="600"
+      prefHeight="500">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="isoBURN - ISO to USB Burner" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <!-- ISO File Selection -->
+    <VBox spacing="5">
+        <Label text="ISO File:"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="isoPathField" editable="false" promptText="Select an ISO file..."
+                       HBox.hgrow="ALWAYS"/>
+            <Button fx:id="browseButton" text="Browse..." onAction="#handleBrowseIso"/>
+        </HBox>
+    </VBox>
+
+    <!-- Drive Selection -->
+    <VBox spacing="5">
+        <Label text="Target USB Drive:"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <ComboBox fx:id="driveComboBox" promptText="Select a drive..."
+                      HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefreshDrives"/>
+        </HBox>
+    </VBox>
+
+    <!-- Options -->
+    <VBox spacing="8">
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <CheckBox fx:id="bootableCheckBox" text="Bootable (UEFI)" selected="true"/>
+            <Label text="(?)" style="-fx-text-fill: #0066cc; -fx-cursor: hand;">
+                <tooltip>
+                    <Tooltip wrapText="true" maxWidth="350" text="Creates a bootable USB drive for UEFI systems.&#10;&#10;Examples when ON:&#10;• Windows 10/11 installer&#10;• Ubuntu/Linux installers&#10;• macOS recovery drives&#10;&#10;Examples when OFF:&#10;• Game ISO backups&#10;• Software archives&#10;• Data file collections"/>
+                </tooltip>
+            </Label>
+        </HBox>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <CheckBox fx:id="handleLargeWimCheckBox" text="Split large files (Win11)" selected="true"/>
+            <Label text="(?)" style="-fx-text-fill: #0066cc; -fx-cursor: hand;">
+                <tooltip>
+                    <Tooltip wrapText="true" maxWidth="350" text="Splits install.wim files larger than 4GB into smaller parts.&#10;&#10;Required for: Windows 11 ISOs (install.wim is ~5-6GB)&#10;&#10;FAT32 has a 4GB file size limit. This option uses&#10;wimlib to split large files into ~3.8GB chunks.&#10;&#10;Note: Requires 'brew install wimlib' for Win11 ISOs."/>
+                </tooltip>
+            </Label>
+        </HBox>
+    </VBox>
+
+    <!-- Progress Section -->
+    <VBox spacing="5">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="statusLabel" text="Ready"/>
+            <Label fx:id="percentLabel" text="" style="-fx-font-weight: bold;"/>
+        </HBox>
+        <ProgressBar fx:id="progressBar" progress="0" maxWidth="Infinity"/>
+    </VBox>
+
+    <!-- Action Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="startButton" text="Start Burn" onAction="#handleStart"
+                style="-fx-font-size: 14px;" prefWidth="150"/>
+        <Button fx:id="cancelButton" text="Cancel" onAction="#handleCancel"
+                style="-fx-font-size: 14px;" prefWidth="150" disable="true"/>
+    </HBox>
+
+    <!-- Log Area -->
+    <VBox spacing="5" VBox.vgrow="ALWAYS">
+        <Label text="Log:"/>
+        <TextArea fx:id="logArea" editable="false" wrapText="true"
+                  VBox.vgrow="ALWAYS" style="-fx-font-family: monospace;"/>
+    </VBox>
+
+    <!-- Footer -->
+    <HBox spacing="15" alignment="CENTER" style="-fx-padding: 15 0 5 0;">
+        <Label text="© 2025" style="-fx-text-fill: #666666;"/>
+        <Label fx:id="websiteLink" text="robertschmidt.dev"
+               style="-fx-text-fill: #0066cc; -fx-cursor: hand; -fx-underline: true;"
+               onMouseClicked="#handleWebsiteClick"/>
+        <Label text="|" style="-fx-text-fill: #cccccc;"/>
+        <Label fx:id="coffeeLink" text="☕ Buy me a coffee"
+               style="-fx-text-fill: #ff813f; -fx-cursor: hand; -fx-underline: true;"
+               onMouseClicked="#handleCoffeeClick"/>
+    </HBox>
+</VBox>
